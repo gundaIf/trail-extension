@@ -1,0 +1,51 @@
+:root,
+:root[data-theme="default"] {
+  --bg: #f0eee6;
+  --panel: #fbfaf7;
+  --line: #e4dfd2;
+  --text: #1a1915;
+  --muted: #6e6a60;
+  --muted-2: #9a958a;
+  --text-soft: #4a473f;
+  --accent: #bc5a38;
+}
+:root[data-theme="dark"] {
+  --bg: #1c1b18; --panel: #252420; --line: #38362f;
+  --text: #f0eee6; --muted: #a6a092; --muted-2: #7c776b; --text-soft: #cfcabb; --accent: #d4a27f;
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-theme="system"] {
+    --bg: #1c1b18; --panel: #252420; --line: #38362f;
+    --text: #f0eee6; --muted: #a6a092; --muted-2: #7c776b; --text-soft: #cfcabb; --accent: #d4a27f;
+  }
+}
+
+* { box-sizing: border-box; }
+body {
+  width: 300px; margin: 0; padding: 16px;
+  background: var(--bg); color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, sans-serif;
+}
+.head { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+.mark { width: 22px; height: 22px; color: var(--accent); }
+.name { font-weight: 600; letter-spacing: .14em; font-size: 12px; }
+.range { margin-left: auto; color: var(--muted); font-size: 11px; }
+
+.big { font-size: 30px; font-weight: 600; letter-spacing: -0.01em; }
+.big .unit { font-size: 14px; color: var(--muted); font-weight: 400; margin-left: 4px; }
+.sub { color: var(--muted); font-size: 12px; margin: 2px 0 14px; }
+
+.list { display: flex; flex-direction: column; gap: 9px; margin-bottom: 14px; }
+.row { display: grid; grid-template-columns: 16px 1fr auto; align-items: center; gap: 9px; font-size: 12.5px; }
+.row .fav { width: 14px; height: 14px; border-radius: 3px; }
+.row .fb { width: 14px; height: 14px; border-radius: 3px; display: grid; place-items: center; font-size: 8px; font-weight: 700; color: #fff; }
+.row .nm { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--text-soft); }
+.row .tm { color: var(--text); font-variant-numeric: tabular-nums; }
+.empty { color: var(--muted-2); font-size: 12px; padding: 8px 0 14px; }
+
+.open {
+  width: 100%; padding: 9px; border: 1px solid var(--line); border-radius: 9px;
+  background: var(--panel); color: var(--text); font-size: 12.5px; cursor: pointer;
+}
+.open:hover { border-color: var(--accent); }
+.foot { text-align: center; color: var(--muted-2); font-size: 10.5px; margin-top: 10px; }
