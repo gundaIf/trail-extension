@@ -7,6 +7,10 @@ Anthropic-inspired palette with **Dark / Default / System** theme modes.
 
 **All data stays on your device** (`chrome.storage.local`). Nothing is ever sent anywhere.
 
+![Trail dashboard](docs/hero.svg)
+
+> _Dashboard shown with demo data. Open `dashboard.html` directly to preview it without installing._
+
 ## Install (unpacked)
 
 1. Open `chrome://extensions`
@@ -42,3 +46,7 @@ Anthropic-inspired palette with **Dark / Default / System** theme modes.
 
 Opening `dashboard.html` outside the extension shows **demo data** so you can
 preview the design without installing.
+
+## License
+
+[MIT](LICENSE) © 2026 Deen David
