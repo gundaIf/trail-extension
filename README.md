@@ -1,4 +1,4 @@
-# Trail — Where your browser time went
+# Trail: Track your trail
 
 A privacy-first Chrome extension that tracks **active-tab time** across your
 focused Chrome windows and shows where your browser time actually goes —
