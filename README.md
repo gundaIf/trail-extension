@@ -52,12 +52,13 @@ Sub-minute visits show as seconds — never rounded to “0 min”.
 | `manifest.json` | MV3 config, permissions (`tabs`, `storage`, `idle`, `alarms`) |
 | `background.js` | Service worker — the tracking engine |
 | `dashboard.html/css/js` | Observatory UI (SVG thread, no libraries) |
+| `trail-lib.js` | Categories, aggregation, demo data, formatting |
 | `popup.html/css/js` | Toolbar popup — last-hour summary |
 | `generate-icons.js` | Regenerates the hand-drawn spiral logo (`node generate-icons.js`) |
 
 ## Customize
 
-- **Categories:** edit the `RULES` array in `dashboard.js`.
+- **Categories:** edit the `RULES` array in `trail-lib.js`.
 - **History length / idle threshold:** constants at the top of `background.js`.
 - **Colors / themes:** the `:root` token blocks at the top of `dashboard.css`.
   Theme choice is remembered in `localStorage['trail-theme']` (`ink` / `paper` / `system`).
