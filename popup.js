@@ -2,15 +2,14 @@
 const MIN_MS = 60 * 1000;
 
 function fmtDur(secs) {
-  secs = Math.round(secs);
+  secs = Math.max(0, Math.round(secs));
+  if (secs < 60) return `${secs}s`;
   if (secs >= 3600) return `${Math.floor(secs / 3600)}h ${String(Math.round((secs % 3600) / 60)).padStart(2, '0')}m`;
-  return `${Math.floor(secs / 60)}m ${String(secs % 60).padStart(2, '0')}s`;
+  const m = Math.floor(secs / 60);
+  const s = secs % 60;
+  return s === 0 ? `${m}m` : `${m}m ${String(s).padStart(2, '0')}s`;
 }
-function colorForHost(host) {
-  const p = ['#5b9dff', '#f2765f', '#f5b73d', '#5cc98a', '#b07cf0', '#ff8a5c', '#46c7c7', '#e35d9c'];
-  let h = 0; for (let i = 0; i < host.length; i++) h = (h * 31 + host.charCodeAt(i)) >>> 0;
-  return p[h % p.length];
-}
+
 const SLD_SUFFIXES = new Set(['co', 'com', 'org', 'net', 'gov', 'edu', 'ac', 'gob', 'mil', 'or', 'ne', 'go']);
 function niceName(host) {
   const labels = String(host).replace(/^www\./, '').replace(/^m\./, '').split('.');
@@ -20,6 +19,15 @@ function niceName(host) {
   return cap(labels[idx] || labels[0] || host);
 }
 function cap(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : s; }
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, (c) => {
+    if (c === '&') return String.fromCharCode(38) + 'amp;';
+    if (c === '<') return String.fromCharCode(38) + 'lt;';
+    if (c === '>') return String.fromCharCode(38) + 'gt;';
+    if (c === '"') return String.fromCharCode(38) + 'quot;';
+    return String.fromCharCode(38) + '#39;';
+  });
+}
 
 async function main() {
   await new Promise((res) => { try { chrome.runtime.sendMessage('flush', () => res()); } catch { res(); } });
@@ -36,7 +44,7 @@ async function main() {
   const entries = Object.entries(hosts).sort((a, b) => b[1] - a[1]);
   const total = entries.reduce((s, [, v]) => s + v, 0);
 
-  document.getElementById('total').textContent = total ? fmtDur(total) : '0m 00s';
+  document.getElementById('total').textContent = total ? fmtDur(total) : '0s';
   document.getElementById('sub').textContent = `across ${entries.length} place${entries.length === 1 ? '' : 's'}`;
 
   const list = document.getElementById('list');
@@ -48,10 +56,11 @@ async function main() {
       const row = document.createElement('div');
       row.className = 'row';
       const fav = meta[host] && meta[host].favicon;
+      const letter = niceName(host).charAt(0);
       const icon = fav
-        ? `<img class="fav" src="${fav}" onerror="this.remove()" alt="">`
-        : `<span class="fb" style="background:${colorForHost(host)}">${host[0].toUpperCase()}</span>`;
-      row.innerHTML = `${icon}<span class="nm">${niceName(host)}</span><span class="tm">${fmtDur(secs)}</span>`;
+        ? `<img class="fav" src="${escapeHtml(fav)}" onerror="this.remove()" alt="">`
+        : `<span class="fb">${escapeHtml(letter)}</span>`;
+      row.innerHTML = `${icon}<span class="nm">${escapeHtml(niceName(host))}</span><span class="tm">${fmtDur(secs)}</span>`;
       list.appendChild(row);
     }
   }
