@@ -5,131 +5,119 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Trail — Where your browser time went</title>
   <script>
-    // Apply saved theme before paint to avoid a flash.
     (function () {
-      var t = 'default';
-      try { t = localStorage.getItem('trail-theme') || 'default'; } catch (e) {}
-      document.documentElement.setAttribute('data-theme', t);
+      var t = "ink";
+      try { t = localStorage.getItem("trail-theme") || "ink"; } catch (e) {}
+      if (t === "dark") t = "ink";
+      if (t === "default") t = "paper";
+      document.documentElement.setAttribute("data-theme", t);
     })();
   </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Instrument+Serif:ital@0;1&display=swap" />
   <link rel="stylesheet" href="dashboard.css" />
 </head>
 <body>
+  <div class="vignette" aria-hidden="true"></div>
+  <svg class="grain-layer" aria-hidden="true">
+    <filter id="grainFilter">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="4" stitchTiles="stitch" />
+    </filter>
+    <rect width="100%" height="100%" filter="url(#grainFilter)" />
+  </svg>
+
   <header class="topbar">
     <div class="brand">
-      <svg class="brand-mark" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M13.25 12.16 L13.29 12.21 L13.29 12.24 L13.28 12.28 L13.26 12.30 L13.22 12.33 L13.18 12.35 L13.14 12.38 L13.10 12.41 L13.06 12.44 L13.02 12.49 L12.99 12.54 L12.97 12.60 L12.94 12.67 L12.92 12.74 L12.89 12.82 L12.86 12.89 L12.83 12.95 L12.79 13.01 L12.76 13.06 L12.72 13.10 L12.68 13.13 L12.64 13.15 L12.60 13.17 L12.56 13.20 L12.52 13.22 L12.48 13.26 L12.43 13.31 L12.37 13.36 L12.30 13.43 L12.22 13.51 L12.12 13.59 L12.01 13.67 L11.88 13.75 L11.75 13.82 L11.61 13.87 L11.46 13.91 L11.32 13.93 L11.18 13.92 L11.06 13.90 L10.95 13.86 L10.85 13.80 L10.77 13.74 L10.70 13.67 L10.64 13.60 L10.58 13.54 L10.53 13.48 L10.47 13.43 L10.41 13.39 L10.33 13.35 L10.24 13.31 L10.15 13.27 L10.04 13.23 L9.93 13.18 L9.82 13.12 L9.72 13.05 L9.62 12.96 L9.54 12.87 L9.48 12.76 L9.44 12.64 L9.42 12.52 L9.42 12.40 L9.43 12.27 L9.46 12.14 L9.49 12.01 L9.53 11.88 L9.57 11.74 L9.61 11.60 L9.64 11.45 L9.67 11.29 L9.69 11.12 L9.71 10.95 L9.73 10.77 L9.75 10.58 L9.78 10.40 L9.81 10.22 L9.85 10.04 L9.89 9.88 L9.95 9.73 L10.01 9.60 L10.08 9.48 L10.16 9.38 L10.24 9.30 L10.32 9.23 L10.40 9.16 L10.49 9.10 L10.59 9.04 L10.70 8.97 L10.81 8.90 L10.95 8.83 L11.10 8.75 L11.26 8.66 L11.45 8.58 L11.65 8.51 L11.87 8.45 L12.09 8.40 L12.33 8.37 L12.56 8.36 L12.78 8.38 L12.99 8.42 L13.19 8.47 L13.37 8.54 L13.53 8.63 L13.67 8.72 L13.79 8.81 L13.90 8.90 L14.01 9.00 L14.11 9.09 L14.21 9.18 L14.32 9.26 L14.44 9.36 L14.57 9.45 L14.71 9.56 L14.86 9.69 L15.02 9.82 L15.18 9.98 L15.35 10.15 L15.51 10.33 L15.66 10.53 L15.80 10.74 L15.93 10.95 L16.05 11.17 L16.16 11.39 L16.25 11.61 L16.34 11.82 L16.41 12.03 L16.47 12.23 L16.52 12.44 L16.56 12.64 L16.58 12.84 L16.59 13.05 L16.58 13.26 L16.55 13.47 L16.50 13.68 L16.42 13.89 L16.32 14.10 L16.19 14.31 L16.04 14.50 L15.87 14.69 L15.68 14.86 L15.49 15.02 L15.30 15.17 L15.10 15.31 L14.91 15.44 L14.73 15.57 L14.56 15.70 L14.39 15.83 L14.23 15.97 L14.07 16.12 L13.91 16.27 L13.74 16.42 L13.56 16.58 L13.36 16.73 L13.15 16.87 L12.91 16.99 L12.66 17.10 L12.39 17.18 L12.10 17.23 L11.81 17.26 L11.50 17.26 L11.20 17.23 L10.90 17.17 L10.61 17.10 L10.33 17.02 L10.05 16.93 L9.79 16.83 L9.53 16.73 L9.28 16.63 L9.03 16.53 L8.79 16.43 L8.55 16.32 L8.32 16.21 L8.09 16.09 L7.86 15.95 L7.65 15.80 L7.44 15.62 L7.25 15.43 L7.08 15.22 L6.93 15.00 L6.79 14.76 L6.67 14.51 L6.57 14.24 L6.49 13.98 L6.41 13.71 L6.35 13.44 L6.29 13.16 L6.23 12.88 L6.19 12.60 L6.14 12.31 L6.10 12.01 L6.08 11.71 L6.06 11.39 L6.06 11.07 L6.09 10.74 L6.13 10.40 L6.21 10.06 L6.31 9.73 L6.43 9.40 L6.58 9.08 L6.74 8.77 L6.92 8.48 L7.11 8.20 L7.30 7.94 L7.50 7.68 L7.68 7.44 L7.87 7.21 L8.05 6.99 L8.23 6.76 L8.41 6.54 L8.60 6.33 L8.80 6.11 L9.01 5.91 L9.25 5.72 L9.51 5.54 L9.79 5.38 L10.10 5.25 L10.44 5.14 L10.80 5.07 L11.18 5.02 L11.56 5.01 L11.96 5.02 L12.35 5.05 L12.74 5.11 L13.13 5.18 L13.50 5.26 L13.87 5.34 L14.22 5.43 L14.55 5.52 L14.88 5.62 L15.19 5.72 L15.50 5.82 L15.79 5.94 L16.08 6.08 L16.35 6.24 L16.61 6.42 L16.87 6.63 L17.10 6.86 L17.33 7.12 L17.55 7.41 L17.75 7.72 L17.95 8.04 L18.14 8.39 L18.32 8.74 L18.51 9.09 L18.69 9.46 L18.88 9.82 L19.07 10.18 L19.27 10.55 L19.45 10.92 L19.64 11.29 L19.80 11.66 L19.95 12.04 L20.07 12.42 L20.15 12.81 L20.19 13.19 L20.19 13.58 L20.14 13.96 L20.04 14.34 L19.89 14.70 L19.70 15.06 L19.48 15.40 L19.23 15.72 L18.95 16.04 L18.67 16.34 L18.38 16.64 L18.10 16.93 L17.81 17.22 L17.53 17.51 L17.26 17.80 L16.99 18.10 L16.72 18.39 L16.45 18.68 L16.17 18.96 L15.88 19.23 L15.57 19.48 L15.24 19.71 L14.89 19.91 L14.51 20.08 L14.12 20.22 L13.72 20.32 L13.29 20.40 L12.86 20.45 L12.41 20.47" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12.41" cy="20.47" r="1.5" fill="currentColor"/></svg>
+      <img class="brand-mark" src="icons/icon32.png" width="28" height="28" alt="" />
       <span class="brand-name">TRAIL</span>
     </div>
+
+    <div class="filters" id="filters" role="group" aria-label="Range">
+      <button class="pill" data-range="hour">Last hour</button>
+      <button class="pill" data-range="3h">Last 3 hours</button>
+      <button class="pill active" data-range="today">Today</button>
+    </div>
+
     <div class="topbar-right">
       <div class="theme-switch" id="themeSwitch" role="group" aria-label="Theme">
-        <button data-theme="dark">Dark</button>
-        <button data-theme="default">Default</button>
+        <button data-theme="ink">Ink</button>
+        <button data-theme="paper">Paper</button>
         <button data-theme="system">System</button>
       </div>
-      <button id="privacyBtn" class="ghost-btn" title="All data is stored only on this device">
-        <span class="eye" aria-hidden="true"></span> Privacy
-      </button>
+      <button id="privacyBtn" class="ghost-btn" type="button">Privacy</button>
     </div>
   </header>
 
-  <main class="layout">
-    <!-- LEFT -->
-    <section class="left">
-      <div class="section-head">
-        <h2>Where your browser time went</h2>
-        <p class="muted">Across focused Chrome windows</p>
-      </div>
-
-      <p class="eyebrow">Your browser, reflected</p>
+  <main>
+    <section class="hero">
+      <p class="eyebrow" id="eyebrow">Across focused Chrome windows</p>
       <h1 class="headline" id="headline">Collecting your activity…</h1>
-
-      <p class="topline" id="topline"></p>
-      <p class="muted small" id="rangeline"></p>
-
-      <div class="places">
-        <div class="places-head">
-          <span>Places</span>
-          <span class="col-time">Time observed</span>
-          <span class="col-pct">% of total</span>
-        </div>
-        <div id="placesList"></div>
-
-        <button id="moreBtn" class="more-row" hidden>
-          <span id="moreLabel"></span>
-          <span class="col-time" id="moreTime"></span>
-          <span class="col-pct" id="morePct"></span>
-        </button>
-      </div>
-
-      <p class="footnote">Observed active-tab time · stored on this device</p>
+      <p class="lede" id="lede"></p>
+      <p class="subline" id="subline"></p>
     </section>
 
-    <!-- RIGHT -->
-    <aside class="right">
-      <div class="filters" id="filters">
-        <button class="pill active" data-range="hour">Last hour</button>
-        <button class="pill" data-range="3h">Last 3 hours</button>
-        <button class="pill" data-range="today">Today</button>
+    <section class="thread-wrap">
+      <div class="section-head">
+        <h2>The thread</h2>
+        <p>Thickness is presence. Color is category.</p>
       </div>
-
-      <div class="card stats">
-        <div class="stat">
-          <span class="stat-ico ico-clock" aria-hidden="true"></span>
-          <div>
-            <div class="stat-value" id="statTotal">—</div>
-            <div class="stat-label">Total observed time</div>
-            <div class="delta" id="deltaTotal"></div>
-          </div>
-        </div>
-        <div class="stat">
-          <span class="stat-ico ico-globe" aria-hidden="true"></span>
-          <div>
-            <div class="stat-value" id="statPlaces">—</div>
-            <div class="stat-label">Places visited</div>
-            <div class="delta" id="deltaPlaces"></div>
-          </div>
-        </div>
-        <div class="stat">
-          <span class="stat-ico ico-target" aria-hidden="true"></span>
-          <div>
-            <div class="stat-value" id="statAvg">—</div>
-            <div class="stat-label">Avg. time per place</div>
-            <div class="delta" id="deltaAvg"></div>
-          </div>
-        </div>
+      <div class="thread-card" id="threadCard">
+        <svg id="thread" class="ribbon-reveal"></svg>
+        <div id="threadTip" class="thread-tip" hidden></div>
       </div>
+    </section>
 
-      <div class="card chart-card">
-        <div class="card-title" id="chartTitle">Time over the last hour</div>
-        <canvas id="chart" width="720" height="240"></canvas>
-        <div class="legend">
-          <span class="lg"><span class="dot dot-line"></span> Observed time</span>
-          <span class="lg"><span class="dash"></span> Avg. this range</span>
+    <section class="stats" id="stats"></section>
+
+    <div class="split">
+      <section>
+        <div class="section-head">
+          <h2>Places</h2>
+          <p>Time observed</p>
         </div>
-      </div>
+        <div id="placesList"></div>
+        <button id="moreBtn" class="more-btn" hidden type="button"></button>
+      </section>
 
-      <div class="card donut-card">
-        <div class="card-title">Top category breakdown</div>
-        <div class="donut-wrap">
-          <div class="donut-holder">
-            <canvas id="donut" width="240" height="240"></canvas>
-            <div class="donut-center">
-              <div class="donut-total" id="donutTotal">—</div>
-              <div class="donut-sub">Total</div>
-            </div>
-          </div>
-          <div class="cat-legend" id="catLegend"></div>
+      <aside>
+        <div class="section-head">
+          <h2>Minute lattice</h2>
+          <p>Each mark is a minute</p>
         </div>
-      </div>
+        <div id="lattice"></div>
 
-      <div class="card note">
-        <span class="stat-ico ico-info" aria-hidden="true"></span>
-        <span>All times are observed active-tab time across focused Chrome windows.</span>
-      </div>
+        <div class="section-head pigment-head">
+          <h2>Pigment of the day</h2>
+          <p>By category</p>
+        </div>
+        <div id="pigment"></div>
+      </aside>
+    </div>
 
-      <button id="resetBtn" class="reset">Reset all data</button>
-    </aside>
+    <section class="journal-wrap">
+      <div class="section-head">
+        <h2>The journal</h2>
+        <p>Visits in order, newest first</p>
+      </div>
+      <div id="journal"></div>
+    </section>
+
+    <footer class="foot">
+      <p>All times are observed active-tab time across focused Chrome windows. Stored on this device only.</p>
+      <p id="demoNote" hidden>Opened outside the extension — showing a sample morning.</p>
+    </footer>
   </main>
+
+  <dialog id="privacyDlg" class="dlg">
+    <h2>On this device only</h2>
+    <p>Trail stores active-tab time in <code>chrome.storage.local</code>. Nothing is sent anywhere — no account, no server, no analytics.</p>
+    <p>Counts only the tab you are looking at, in a focused Chrome window. Idle, locked, or <code>chrome://</code> pages are not recorded. History is pruned after about three days.</p>
+    <div class="dlg-actions">
+      <button id="resetBtn" class="ghost-btn danger" type="button">Reset all data</button>
+      <button id="privacyClose" class="ghost-btn" type="button">Close</button>
+    </div>
+  </dialog>
 
   <script src="dashboard.js"></script>
 </body>
