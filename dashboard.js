@@ -275,13 +275,21 @@ function favHtml(host, meta) {
   return `<span class="fav-fallback" style="background:${colorForHost(host)}">${host[0].toUpperCase()}</span>`;
 }
 
-function niceName(host, meta) {
-  const t = meta[host] && meta[host].title;
-  // Prefer a short, clean site name derived from host.
-  const base = host.replace(/\.(com|org|net|io|ai|co|so|app|dev|gg)$/,'').split('.').pop();
-  const name = base.charAt(0).toUpperCase() + base.slice(1);
-  return name || host;
+// Second-level suffixes where the label before them isn't the site name,
+// e.g. example.co.uk / example.com.br -> "example".
+const SLD_SUFFIXES = new Set(['co', 'com', 'org', 'net', 'gov', 'edu', 'ac', 'gob', 'mil', 'or', 'ne', 'go']);
+
+// Derive a clean site name from any hostname, for any TLD.
+// deeeen.xyz -> "Deeeen", web.whatsapp.com -> "Whatsapp", foo.co.uk -> "Foo".
+function niceName(host) {
+  const labels = String(host).replace(/^www\./, '').replace(/^m\./, '').split('.');
+  if (labels.length <= 1) return cap(labels[0] || host);
+  // pick the label just before the public suffix (last label, or last two)
+  let idx = labels.length - 2;
+  if (labels.length >= 3 && SLD_SUFFIXES.has(labels[labels.length - 2])) idx = labels.length - 3;
+  return cap(labels[idx] || labels[0] || host);
 }
+function cap(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : s; }
 
 function placeRow(host, secs, total, maxSecs, meta) {
   const row = document.createElement('div');
@@ -293,7 +301,7 @@ function placeRow(host, secs, total, maxSecs, meta) {
   const nameWrap = document.createElement('div');
   nameWrap.className = 'place-name place-body';
   nameWrap.innerHTML = favHtml(host, meta) +
-    `<span class="label" title="${escapeAttr(host)}">${escapeHtml(niceName(host, meta))}</span>`;
+    `<span class="label" title="${escapeAttr(host)}">${escapeHtml(niceName(host))}</span>`;
 
   const bar = document.createElement('div');
   bar.className = 'bar-wrap';
@@ -438,7 +446,7 @@ function demoData() {
   const sites = [
     ['mail.google.com', 'Gmail', 25 * 60 + 41],
     ['chatgpt.com', 'ChatGPT', 9 * 60 + 32],
-    ['whatbrandonthinks.com', 'Whatbrandonthinks', 6 * 60 + 18],
+    ['deeeen.xyz', 'Deeeen', 6 * 60 + 18],
     ['wikipedia.org', 'Wikipedia', 4 * 60 + 47],
     ['web.whatsapp.com', 'WhatsApp Web', 3 * 60 + 26],
     ['linkedin.com', 'LinkedIn', 2 * 60 + 58],

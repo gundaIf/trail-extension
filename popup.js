@@ -11,10 +11,15 @@ function colorForHost(host) {
   let h = 0; for (let i = 0; i < host.length; i++) h = (h * 31 + host.charCodeAt(i)) >>> 0;
   return p[h % p.length];
 }
+const SLD_SUFFIXES = new Set(['co', 'com', 'org', 'net', 'gov', 'edu', 'ac', 'gob', 'mil', 'or', 'ne', 'go']);
 function niceName(host) {
-  const base = host.replace(/\.(com|org|net|io|ai|co|so|app|dev|gg)$/, '').split('.').pop();
-  return base.charAt(0).toUpperCase() + base.slice(1);
+  const labels = String(host).replace(/^www\./, '').replace(/^m\./, '').split('.');
+  if (labels.length <= 1) return cap(labels[0] || host);
+  let idx = labels.length - 2;
+  if (labels.length >= 3 && SLD_SUFFIXES.has(labels[labels.length - 2])) idx = labels.length - 3;
+  return cap(labels[idx] || labels[0] || host);
 }
+function cap(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : s; }
 
 async function main() {
   await new Promise((res) => { try { chrome.runtime.sendMessage('flush', () => res()); } catch { res(); } });
