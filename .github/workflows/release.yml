@@ -1,0 +1,62 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Read version
+        id: ver
+        run: |
+          VER=$(python3 -c "import json; print(json.load(open('manifest.json'))['version'])")
+          echo "version=$VER" >> "$GITHUB_OUTPUT"
+          echo "tag=v$VER" >> "$GITHUB_OUTPUT"
+
+      - name: Already published?
+        id: check
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if gh release view "${{ steps.ver.outputs.tag }}" >/dev/null 2>&1; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Pack zip
+        if: steps.check.outputs.exists == 'false'
+        run: |
+          VER="${{ steps.ver.outputs.version }}"
+          STAGE="$(mktemp -d)/trail-extension"
+          mkdir -p "$STAGE/icons" "$STAGE/docs"
+          cp background.js dashboard.html dashboard.css dashboard.js \
+            popup.html popup.css popup.js trail-lib.js generate-icons.js \
+            manifest.json README.md LICENSE CHANGELOG.md "$STAGE/"
+          cp icons/* "$STAGE/icons/"
+          cp docs/* "$STAGE/docs/"
+          (cd "$(dirname "$STAGE")" && zip -r "$GITHUB_WORKSPACE/trail-extension-v${VER}.zip" trail-extension)
+          ls -lh "trail-extension-v${VER}.zip"
+
+      - name: Publish GitHub release
+        if: steps.check.outputs.exists == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "${{ steps.ver.outputs.tag }}" \
+            --title "Trail v${{ steps.ver.outputs.version }} — Observatory" \
+            --notes-file RELEASE_NOTES.md \
+            --latest \
+            "trail-extension-v${{ steps.ver.outputs.version }}.zip"
