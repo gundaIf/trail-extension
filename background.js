@@ -1,4 +1,4 @@
-// Trail — activity tracker service worker (Manifest V3)
+// Trail: activity tracker service worker (Manifest V3)
 // Records active-tab time (only the focused window's active tab, only while the
 // user is not idle) into per-minute buckets stored in chrome.storage.local.
 // Nothing ever leaves the device.
