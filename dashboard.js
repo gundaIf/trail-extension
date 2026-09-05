@@ -11,7 +11,7 @@ async function render() {
   document.getElementById('lede').textContent = nar.lede;
   document.getElementById('subline').textContent = nar.sub;
   if (agg.totalSeconds < 1) {
-    document.getElementById('lede').textContent = 'Browse a few sites, then come back — Trail only counts the tab you are actively looking at.';
+    document.getElementById('lede').textContent = 'Browse a few sites, then come back. Trail only counts the tab you are actively looking at.';
   }
   drawThread(agg);
   drawStats(agg);
@@ -30,7 +30,7 @@ function drawStats(agg) {
   document.getElementById('stats').innerHTML = `
     <div class="stat"><p class="k">Present</p><p class="v">${fmtDur(agg.totalSeconds)}</p><p class="h">${deltaCopy(agg.totalSeconds, agg.prevTotal, agg.prevLabel)}</p></div>
     <div class="stat"><p class="k">Places</p><p class="v">${agg.hosts.length}</p><p class="h">${placesHint}</p></div>
-    <div class="stat"><p class="k">Longest stay</p><p class="v">${agg.longest ? fmtDur(agg.longest.seconds) : '—'}</p><p class="h">${agg.longest ? escapeHtml(agg.longest.title) : 'No sessions yet'}</p></div>
+    <div class="stat"><p class="k">Longest stay</p><p class="v">${agg.longest ? fmtDur(agg.longest.seconds) : '-'}</p><p class="h">${agg.longest ? escapeHtml(agg.longest.title) : 'No sessions yet'}</p></div>
     <div class="presence">
       <div class="meta"><span>Presence · ${present}% of this range</span><span>${fmtDur(agg.totalSeconds)} present / ${fmtDur(idleSecs)} idle</span></div>
       <div class="track"><span style="width:${Math.max(present, present > 0 ? 2 : 0)}%"></span></div>
