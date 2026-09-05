@@ -1,4 +1,4 @@
-// Generates the Trail logo — a hand-drawn spiral trail — as PNG toolbar icons
+// Generates the Trail logo, a hand-drawn spiral trail, as PNG toolbar icons
 // and an SVG. No external dependencies (pure Node + zlib).
 // Run: node generate-icons.js  →  writes icons/icon{16,32,48,128}.png and icons/logo.svg
 //                                  and prints the SVG path `d` for inline use.
@@ -34,7 +34,7 @@ function spiralPoints() {
 const PTS = spiralPoints();
 
 // stroke half-width along the spiral (unit frame): thin at the start, fuller at
-// the outer end — a pen-pressure taper. Plus a rounded "head" dot at the tip.
+// the outer end, a pen-pressure taper. Plus a rounded "head" dot at the tip.
 const W0 = 0.055, W1 = 0.11;
 function halfWidthAt(t) { return W0 + (W1 - W0) * t; }
 
