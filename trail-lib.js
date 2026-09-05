@@ -1,4 +1,4 @@
-// Trail — observatory dashboard
+// Trail: observatory dashboard
 // Reads chrome.storage.local buckets written by background.js.
 // Opened as a plain HTML file, shows a scripted sample morning.
 'use strict';
