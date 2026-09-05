@@ -11,7 +11,8 @@ Privacy-first MV3 extension. Tracks active-tab time on-device. Dashboard is a ha
   2. As a plain `dashboard.html` file (demo data, no Chrome APIs)
 - Keep `niceName()` / SLD suffix handling so `deeeen.xyz` shows **Deeeen**, not **Xyz**.
 - Sub-minute time must never round to “0 min”.
-- Load unpacked — no build step. Vanilla HTML/CSS/JS only.
+- No em dashes (U+2014). Use a colon, comma, period, or hyphen.
+- Load unpacked: no build step. Vanilla HTML/CSS/JS only.
 
 ## Design
 
@@ -21,7 +22,7 @@ generic line chart or donut back as the primary viz.
 
 ## Files
 
-- `background.js` — service worker
-- `dashboard.*` — observatory
-- `popup.*` — last-hour toolbar
-- `generate-icons.js` — spiral PNG/SVG (`node generate-icons.js`)
+- `background.js`: service worker
+- `dashboard.*`: observatory
+- `popup.*`: last-hour toolbar
+- `generate-icons.js`: spiral PNG/SVG (`node generate-icons.js`)

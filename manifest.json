@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Trail — Where your browser time went",
+  "name": "Trail: Where your browser time went",
   "version": "1.1.0",
   "description": "Privately tracks active-tab time across focused Chrome windows and shows the trail it left. All data stays on your device.",
   "permissions": [
