@@ -3,7 +3,7 @@
 [![Release](https://img.shields.io/github/v/release/gundaIf/trail-extension?color=c96a45&label=v1.1.0&logo=github)](https://github.com/gundaIf/trail-extension/releases/latest)
 [![License: MIT](https://img.shields.io/badge/license-MIT-e9e3d6?labelColor=12100e)](LICENSE)
 [![Manifest V3](https://img.shields.io/badge/manifest-v3-7d8f62?labelColor=12100e)](manifest.json)
-[![Privacy](https://img.shields.io/badge/data-on--device%20only-c96a45&labelColor=12100e)](#privacy)
+[![Privacy](https://img.shields.io/badge/data-on--device%20only-c96a45?labelColor=12100e)](#privacy)
 
 A privacy-first Chrome extension that tracks **active-tab time** across focused
 Chrome windows, then shows the trail it left.
