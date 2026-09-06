@@ -4,6 +4,11 @@ All notable changes to Trail are documented here.
 
 ## [Unreleased]
 
+## [1.1.1] - 2026-09-06
+
+### Changed
+
+- Release zip is smaller. About 24% lighter. Trimmed non-runtime files (`generate-icons.js`, `docs/`, `icons/logo.svg`, `CHANGELOG.md`) from the packaged bundle. Chrome never loaded these; the installed extension is identical.
 - Copy: no em dashes in product UI, comments, or docs.
 
 ## [1.1.0] - 2026-09-04
@@ -38,5 +43,6 @@ First public release.
 - Dark / Default / System themes.
 - Hand-drawn spiral logo. Zero dependencies. 100% local.
 
+[1.1.1]: https://github.com/gundaIf/trail-extension/releases/tag/v1.1.1
 [1.1.0]: https://github.com/gundaIf/trail-extension/releases/tag/v1.1.0
 [1.0.0]: https://github.com/gundaIf/trail-extension/releases/tag/v1.0.0

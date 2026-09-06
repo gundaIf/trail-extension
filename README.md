@@ -1,6 +1,6 @@
 # Trail
 
-[![Release](https://img.shields.io/github/v/release/gundaIf/trail-extension?color=c96a45&label=v1.1.0&logo=github)](https://github.com/gundaIf/trail-extension/releases/latest)
+[![Release](https://img.shields.io/github/v/release/gundaIf/trail-extension?color=c96a45&label=v1.1.1&logo=github)](https://github.com/gundaIf/trail-extension/releases/latest)
 [![License: MIT](https://img.shields.io/badge/license-MIT-e9e3d6?labelColor=12100e)](LICENSE)
 [![Manifest V3](https://img.shields.io/badge/manifest-v3-7d8f62?labelColor=12100e)](manifest.json)
 [![Privacy](https://img.shields.io/badge/data-on--device%20only-c96a45?labelColor=12100e)](#privacy)
@@ -16,9 +16,9 @@ No accounts. No servers. Nothing leaves the device.
 
 ## Install
 
-### From the [v1.1.0 release](https://github.com/gundaIf/trail-extension/releases/tag/v1.1.0)
+### From the [v1.1.1 release](https://github.com/gundaIf/trail-extension/releases/tag/v1.1.1)
 
-1. Download **[`trail-extension-v1.1.0.zip`](https://github.com/gundaIf/trail-extension/releases/latest/download/trail-extension-v1.1.0.zip)** and unzip it.
+1. Download **[`trail-extension-v1.1.1.zip`](https://github.com/gundaIf/trail-extension/releases/latest/download/trail-extension-v1.1.1.zip)** and unzip it.
 2. Open `chrome://extensions` and turn on **Developer mode** (top-right).
 3. Click **Load unpacked** and select the unzipped **`trail-extension`** folder.
 4. Pin the Trail icon, browse normally for a bit, then click it → **Open the observatory**.
