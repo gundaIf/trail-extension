@@ -41,12 +41,11 @@ jobs:
         run: |
           VER="${{ steps.ver.outputs.version }}"
           STAGE="$(mktemp -d)/trail-extension"
-          mkdir -p "$STAGE/icons" "$STAGE/docs"
+          mkdir -p "$STAGE/icons"
           cp background.js dashboard.html dashboard.css dashboard.js \
-            popup.html popup.css popup.js trail-lib.js generate-icons.js \
-            manifest.json README.md LICENSE CHANGELOG.md "$STAGE/"
-          cp icons/* "$STAGE/icons/"
-          cp docs/* "$STAGE/docs/"
+            popup.html popup.css popup.js trail-lib.js \
+            manifest.json README.md LICENSE "$STAGE/"
+          cp icons/icon16.png icons/icon32.png icons/icon48.png icons/icon128.png "$STAGE/icons/"
           (cd "$(dirname "$STAGE")" && zip -r "$GITHUB_WORKSPACE/trail-extension-v${VER}.zip" trail-extension)
           ls -lh "trail-extension-v${VER}.zip"
 
